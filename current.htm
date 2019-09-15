@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link href="current_files/css.css" rel="stylesheet" type="text/css">
+    <link href="current_files/css_002.css" rel="stylesheet" type="text/css">
+    <title>~</title>
+    <link rel="stylesheet" href="current_files/main.css">
+  </head>
+
+  <body>
+    <main>
+      <h1>home</h1>
+      <p>
+        </p><li class="subh">fun</li>
+		<li><a href="https://sushigirl.us/">sushi</a></li>
+        <li><a href="https://old.reddit.com/r/popular">reddit</a></li>
+		<li><a href="https://arisuchan.jp/">arisu</a></li>
+      <p></p>
+      <p>
+        </p><li class="subh">stuff</li>
+        <li><a href="http://old.reddit.com/r/118">118</a></li>
+        <li><a href="https://keep.google.com/">keep</a></li>
+        <li><a href="https://drive.google.com/">drive</a></li>
+      <p></p>
+      <p>
+        </p><li class="subh">media</li>
+        <li><a href="https://soundcloud.com/">soundcloud</a></li>
+        <li><a href="https://youtube.com/">youtube</a></li>
+      <p></p>
+      <p>
+        </p><li class="subh">"work"</li>
+        <li><a href="https://www.noisli.com/">noisli</a></li>
+        <li><a href="https://pomodoro-tracker.com/">pomodoro</a></li>
+      <p></p>
+      <p>
+        <input type="text" class="searchfield" autofocus="" placeholder="lurk...">
+      </p>
+    </main>
+    <script>
+      document.getElementsByClassName('searchfield')[0].onkeypress = function (e) {
+        if (!e) e = window.event;
+        var keyCode = e.keyCode || e.which;
+        if (keyCode == '13') {
+          window.location.href = "https://duckduckgo.com/?q=" + document.getElementsByClassName('searchfield')[0].value;
+        }
+      };
+    </script>
+  
+
+</body></html>
