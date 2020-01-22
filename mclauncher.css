@@ -1,0 +1,327 @@
+#localize-current{
+    border-radius: 0 !important;
+}
+.localize-dark#localize-current{
+    border: none !important;
+     border-radius: 0 !important;
+}
+#localize-langs a{
+    border: none !important;
+}
+.localize-right{
+    border:none !important;
+    font-family: "Work Sans";
+}
+ #localize-powered{
+    position: absolute;
+     top: -9999px;
+     left: -9999px;
+}
+html,body{
+    -webkit-tap-highlight-color:transparent;
+    margin:0;
+    padding:0;
+    height:100%;
+    margin-bottom:70px
+}
+.page{
+    z-index:9999;
+    position:fixed;
+    left:0;
+    right:0;
+    width:100%;
+    height:100%
+}
+.bg{
+    width:100%;
+    height:100%;
+    position: fixed !important;
+    display: block;
+    left:0;
+    top:0;
+    background:#f2f2f2;
+    background-image:url("https://i.imgur.com/3O5vcuX.jpg");
+    background-position:center;
+    background-repeat:no-repeat;
+    padding-bottom:70px
+}
+.content{
+    max-width:1070px;
+    margin:0 auto;
+    position:relative;
+    box-sizing:border-box
+}
+img{
+    -webkit-user-drag:none
+}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    font:inherit;
+    vertical-align:baseline
+}
+article,aside,details,figcaption,footer,header,hgroup,menu,nav,section{
+    display:block
+}
+figure{
+    display:inline-block
+}
+html{
+    box-sizing:border-box
+}
+*,*:before,*:after{
+    box-sizing:inherit
+}
+body{
+    line-height:1
+}
+ol,ul,li{
+    list-style:none
+}
+blockquote,q{
+    quotes:none
+}
+blockquote:before,blockquote:after,q:before,q:after{
+    content:'';
+    content:none
+}
+table{
+    border-collapse:collapse;
+    border-spacing:0
+}
+a{
+    text-decoration:none
+}
+input{
+    line-height:normal
+}
+body{
+    font-family:'Work Sans', sans-serif
+}
+*{
+    -webkit-font-smoothing:antialiased;
+    -webkit-tap-highlight-color:transparent;
+    text-rendering:optimizeLegibility;
+    -webkit-tap-highlight-color:transparent
+}
+.item{
+    width:100%;
+    height:260px;
+    box-shadow:0 3px 8px -4px rgba(0,0,0,0.15);
+    background:rgba(255,255,255,0.25);
+    position:relative;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:contain;
+    cursor:pointer
+}
+.twitter-symbol{
+    width:45px;
+    height:45px;
+    padding:7px;
+    padding-right:6px;
+    border-radius:9px;
+    margin-bottom:-15px;
+}
+a{
+    text-decoration:none;
+    color:#6fa5fc;
+    transition:color 0.3s
+}
+a:hover{
+    color:#4fbff2
+}
+.footer{
+    margin-top:50px;
+    width:100%;
+    text-align:center;
+    height:130px;
+    box-sizing:border-box;
+    color:#FFF;
+    font-size:20px;
+    font-weight:500;
+    line-height:1.5
+}
+.logo-container{
+    /*width:100%;*/
+    padding-left:80px;
+    box-sizing:border-box;
+    position:absolute;
+    text-align:center;
+	top: 50%;
+	left: 50%;
+}
+@media screen and (max-width: 768px){
+    .logo-container{
+        padding-left:0
+    }
+}
+.logo{
+    /*margin-bottom:90px;
+    margin-top:90px;
+    max-width:670px;*/
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	height: 633px;
+	margin-left: -300px;
+	margin-top: -316px;
+	width: 600px;
+}
+@media screen and (max-width: 768px){
+    .logo{
+        margin:60px 20px
+    }
+}
+@keyframes up{
+    0%{
+        transform:translateY(5px)
+    }
+    100%{
+        transform:translateY(0px)
+    }
+}
+span.action-text{
+    display:table-cell;
+    vertical-align:middle;
+    padding-bottom:24px;
+    padding-left:12px;
+    padding-right:12px;
+    font-size:18px;
+    color:#444;
+    line-height:1.2
+}
+.item-action{
+    width:100%;
+    height:100%;
+    text-align:center;
+    display:table;
+    opacity:0;
+    transition:opacity 0.3s ease-in-out;
+    background:rgba(255,255,255,0.85)
+}
+.item:hover>.item-action{
+    opacity:1
+}
+.item:hover>.item-action>.action-text{
+    animation:up 0.3s
+}
+.tag{
+    padding:5px 10px;
+    background-color:#03A9F4
+}
+.price-tag,.amount-tag,.item-name{
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+}
+.item-name{
+    left:0;
+    right:0;
+    bottom:0;
+    margin-right:auto;
+    margin-left:auto;
+    position:absolute;
+    padding:0 20px;
+    color:#FFF;
+    font-size:20px;
+    font-weight:500;
+    background-color:#0288D1;
+    line-height:3pc;
+    text-align:center
+}
+.price-tag{
+    background-color:rgba(100,221,23,0.95);
+    position:absolute;
+    top:0;
+    right:0;
+    color:#FFF;
+    font-size:20px;
+    font-weight:500;
+    line-height:3pc;
+    padding:0 20px
+}
+#shrink,#shrink-2,#shrink-3{
+    background-position:50% 40%
+}
+#shrink{
+    background-size:60%
+}
+#shrink-3{
+    background-size:90%
+}
+#shrink-2{
+    background-size:80%
+}
+.amount-tag{
+    background-color:#BDBDBD;
+    color:#616161;
+    text-decoration:line-through;
+    position:absolute;
+    top:0;
+    left:0;
+    font-size:20px;
+    font-weight:500;
+    line-height:3pc;
+    padding:0 20px
+}
+.row{
+    box-sizing:border-box;
+    width:100%;
+    font-size:0
+}
+.col{
+    padding:0 20px;
+    margin-bottom:40px;
+    display:inline-block;
+    width:100%;
+    vertical-align:top
+}
+@media screen and (min-width: 768px){
+    .col{
+        width:50%
+    }
+}
+@media screen and (min-width: 1240px){
+    .col{
+        width:33.33333333%
+    }
+}
+/*# sourceMappingURL=style.css.map */
+
+.bottomdc-right
+{
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  position: absolute;
+  z-index:1000000;
+}
+
+
+.img-dc {
+    position: fixed; /* Child should have absolute position */
+    bottom: 25px;
+    left: 25px;
+    width: 65px;
+    height: 65px;
+}
+ 
+.discord-img-top {
+    width: 65px;
+    height: 65px;
+}
+
+.discordimgdiv {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+text-align: center;
+    color:#FFF;
+
+}
