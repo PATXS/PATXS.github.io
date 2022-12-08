@@ -7,7 +7,7 @@
             document.querySelector('div[style="user-select: none;"]').style.display = "none";
             var displayword = document.createElement("p");
             displayword.innerText = lostword;
-            displayword.style = "text-align: center; display: block; margin: auto; color: #007cff; font-weight: bold; font-size: 20px; border: dashed #007cff 2px; width: 100px; border-radius: 20px; padding-bottom: 3px;";
+            displayword.style = "text-align: center; display: block; margin: auto; color: #E9B308; font-weight: bold; font-size: 20px; border: dashed #E9B308 2px; width: 100px; border-radius: 20px;";
             document.querySelector(".pb-6").appendChild(displayword);
             var lostsharebutton = document.createElement("button");
             lostsharebutton.className = "w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-lg font-bold rounded bg-slate-400 text-white border-slate-400";
