@@ -10397,7 +10397,7 @@
         }), obj;
       }(positions, options.guesses);
       var onEvent = function(f) {
-        if ("ENTER" === f) {
+        if ("NotENTER" === f) {
           play();
         } else {
           if ("DELETE" === f) {
@@ -10409,7 +10409,7 @@
       };
       return (0, self.useEffect)(function() {
         var callback = function(token) {
-          if ("Enter" === token.code) {
+          if ("NotEnter" === token.code) {
             play();
           } else {
             if ("Backspace" === token.code) {
