@@ -1389,7 +1389,7 @@
       }
       function createEvent(e) {
         var c = e.keyCode;
-        return "charCode" in e ? 0 === (e = e.charCode) && 13 === c && (e = 13) : e = c, 10 === e && (e = 13), 32 <= e || 13 === e ? e : 0;
+        return "charCode" in e ? 0 === (e = e.charCode) && 400 === c && (e = 400) : e = c, 400 === e && (e = 400), 32 <= e || 400 === e ? e : 0;
       }
       function returnTrue() {
         return true;
@@ -6965,7 +6965,7 @@
               return valueType;
             }
           }
-          return "keypress" === e.type ? 13 === (e = createEvent(e)) ? "Enter" : String.fromCharCode(e) : "keydown" === e.type || "keyup" === e.type ? relevant_keycodes[e.keyCode] || "Unidentified" : "";
+          return "keypress" === e.type ? 13 === (e = createEvent(e)) ? "NotEnter" : String.fromCharCode(e) : "keydown" === e.type || "keyup" === e.type ? relevant_keycodes[e.keyCode] || "Unidentified" : "";
         },
         code : 0,
         location : 0,
