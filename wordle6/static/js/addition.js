@@ -197,7 +197,7 @@ function toggleDark(){
 function themeDark(){
     document.querySelector("body").style.background = "#111";
     document.querySelector("body").className = "dark";
-    addStyle(`.bg-green-500, .bg-yellow-500, .inline-flex.justify-center.w-full.rounded-md, .sm\\:my-8, #root {filter: hue-rotate(180deg) invert(1);} .sm\\:my-8 {background: #eeecee;} .bg-slate-400 {color: black;} .text-xl.grow.font-bold::after{color: #834e00 !important;} .felloff {filter: hue-rotate(180deg) invert(1);}.bg-green-100 {filter: brightness(0.9);}`);
+    addStyle(`.bg-green-500, .bg-yellow-500, .inline-flex.justify-center.w-full.rounded-md, .sm\\:my-8, #root {filter: hue-rotate(180deg) invert(1);} .sm\\:my-8 {background: #eeecee;} .bg-slate-400 {color: black !important;} .text-xl.grow.font-bold::after{color: #834e00 !important;} .felloff {filter: hue-rotate(180deg) invert(1);}.bg-green-100 {filter: brightness(0.9);}`);
     settings.dark = 1;
     localStorage.setItem('settings', JSON.stringify(settings));
 }
