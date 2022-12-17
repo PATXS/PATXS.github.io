@@ -16,7 +16,7 @@
   text-align: center;
   display: inline-block;
   font-size: 2rem;
-  margin-left: 19%;
+  margin-left: 20%;
 }
 
 .text-xl.grow.font-bold::after {
