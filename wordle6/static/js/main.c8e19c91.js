@@ -60620,7 +60620,7 @@
                     return e ? JSON.parse(e) : null;
                 })();
             var ma = function () {
-                    var a = o((0, e.useState)("/random" === window.location.pathname || "/random6" === window.location.pathname ? "random6" : "/random5" === window.location.pathname ? "random5" : "daily6"), 2),
+                    var a = o((0, e.useState)("/random" === window.location.pathname || window.location.pathname.includes("/random6") ? "random6" : window.location.pathname.includes("/random5") ? "random5" : "daily6"), 2),
                         r = a[0],
                         s = a[1],
                         n = o(
