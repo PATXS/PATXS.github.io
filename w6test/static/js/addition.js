@@ -1,4 +1,4 @@
-var start = new Date(2022, 0, 1);
+/*var start = new Date(2022, 0, 1);
 var day = Math.floor((Date.now() - start) / 86400000);
 var stats = {
     lastPlayed: 0,
@@ -296,4 +296,4 @@ async function createMsg(msg){
     headsUp.children[0].style.opacity = 0;
     await new Promise(r => setTimeout(r, 1000));
     headsUp.remove();
-}
+}*/
