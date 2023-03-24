@@ -83,6 +83,47 @@ async function detectWinLoss(){
     catch{}
 }
 
+function HMCheckValidGuess(){
+    console.log("test (enter event worked)");
+    if(settings.hard != 1){
+        console.log("test (hard mode off)");
+        document.querySelector(".enterbtn").click();
+        return;
+    }
+    console.log("test (hard mode on)");
+    var greens = {};
+    var yellows = [];
+    for(var x=1;x<7;x++){
+        for(var y=0;y<6;y++){
+            try{
+            if(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].className.includes("yellow")) yellows.push(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].innerText);
+            if(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].className.includes("green")) greens[y] = document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].innerText;}
+            catch{}
+        }
+    }
+    for(var z=0;z<6;z++){
+        if(greens[z]){
+            if(document.querySelectorAll(".border-slate-200")[z].innerText != greens[z]) {
+                createMsg("" +greens[z] +" must be in position " +(z+1));
+                return;
+            }
+        }
+    }
+    var guess = "";
+    for(var a=0;a<6;a++){
+        guess+=document.querySelectorAll(".border-slate-200")[a].innerText;
+    }
+    for(var b=0;b<6;b++){
+        if(yellows[b]){
+            if(!guess.includes(yellows[b])){
+                createMsg("Word must include " +yellows[b]);
+                return;
+            }
+        }
+    }
+    document.querySelector(".enterbtn").click();
+}
+
 async function displayLoss(){
     var lostword = JSON.parse(localStorage.getItem('gameState')).solution;
     var el = document.querySelector(".h-6.w-6.cursor-pointer");
@@ -315,47 +356,6 @@ function toggleShareFormat(){
         document.querySelector(".shareformat").innerText = "Share format: Discord";
     }
     localStorage.setItem('settings', JSON.stringify(settings));
-}
-
-function HMCheckValidGuess(){
-    console.log("test (enter event worked)");
-    if(settings.hard != 1){
-        console.log("test (hard mode off)");
-        document.querySelector(".enterbtn").click();
-        return;
-    }
-    console.log("test (hard mode on)");
-    var greens = {};
-    var yellows = [];
-    for(var x=1;x<7;x++){
-        for(var y=0;y<6;y++){
-            try{
-            if(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].className.includes("yellow")) yellows.push(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].innerText);
-            if(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].className.includes("green")) greens[y] = document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].innerText;}
-            catch{}
-        }
-    }
-    for(var z=0;z<6;z++){
-        if(greens[z]){
-            if(document.querySelectorAll(".border-slate-200")[z].innerText != greens[z]) {
-                createMsg("" +greens[z] +" must be in position " +(z+1));
-                return;
-            }
-        }
-    }
-    var guess = "";
-    for(var a=0;a<6;a++){
-        guess+=document.querySelectorAll(".border-slate-200")[a].innerText;
-    }
-    for(var b=0;b<6;b++){
-        if(yellows[b]){
-            if(!guess.includes(yellows[b])){
-                createMsg("Word must include " +yellows[b]);
-                return;
-            }
-        }
-    }
-    document.querySelector(".enterbtn").click();
 }
 
 async function createMsg(msg){
