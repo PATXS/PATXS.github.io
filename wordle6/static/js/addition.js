@@ -129,7 +129,7 @@ function shareOrCopy(wl){
     var miss = "⬜";
     if(document.querySelector("body").classList.contains("dark")) miss = "⬛";
     if(settings.hard == 1) asterisk="*"
-    var gamestate = "wordle6.com " +day +asterisk +" X/6\n\n";
+    var gamestate = "wordle6.com " +day +" X/6" +asterisk +"\n\n";
     for(var x=1;x<7;x++){
         word = "";
         for(var y=0;y<6;y++){
