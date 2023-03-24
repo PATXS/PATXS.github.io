@@ -62,7 +62,7 @@ document.onkeypress = function (e) {
     fakeenter.addEventListener("click", HMCheckValidGuess, false);
     document.querySelector(".py-4 > div:nth-child(3) > div:nth-child(3)").prepend(fakeenter);
     if(stats.lastPlayed == day && JSON.parse(localStorage.getItem('gameState')).guesses.includes(JSON.parse(localStorage.getItem('gameState')).solution)) replaceShare();
-    if(stats.lastPlayed == day && !JSON.parse(localStorage.getItem('gameState')).guesses.includes(JSON.parse(localStorage.getItem('gameState')).solution)) displayLoss();
+    if(stats.lastPlayed == day && !JSON.parse(localStorage.getItem('gameState')).guesses.includes(JSON.parse(localStorage.getItem('gameState')).solution) && JSON.parse(localStorage.getItem('gameState')).guesses.length == 6) displayLoss();
 })();
 
 async function detectWinLoss(){
