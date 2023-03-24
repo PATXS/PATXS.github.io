@@ -115,6 +115,7 @@ async function displayLoss(){
 }
 
 async function replaceShare(){
+    await new Promise(r => setTimeout(r, 100));
     if(document.querySelector(".inline-flex.justify-center.w-full.rounded-md").innerText != "Share") return;
     var oldshare = document.querySelector(".inline-flex.justify-center.w-full.rounded-md");
     var newshare = oldshare.cloneNode();
@@ -149,7 +150,7 @@ function shareOrCopy(wl){
         document.querySelector(".inline-flex").innerText = "Copied!";
         return;
     }
-    navigator.share ? navigator.share({text: gamestate}) : (navigator.clipboard.writeText(gamestate) ? document.querySelector(".inline-flex").innerText = "Copied!" : 0);
+    else navigator.share ? navigator.share({text: gamestate}) : (navigator.clipboard.writeText(gamestate) ? document.querySelector(".inline-flex").innerText = "Copied!" : 0);
 }
 
 async function openSettings(){
@@ -317,10 +318,13 @@ function toggleShareFormat(){
 }
 
 function HMCheckValidGuess(){
+    console.log("test (enter event worked)");
     if(settings.hard != 1){
+        console.log("test (hard mode off)");
         document.querySelector(".enterbtn").click();
         return;
     }
+    console.log("test (hard mode on)");
     var greens = {};
     var yellows = [];
     for(var x=1;x<7;x++){
