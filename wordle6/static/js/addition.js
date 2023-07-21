@@ -66,7 +66,7 @@ document.onkeypress = function (e) {
 })();
 
 async function detectWinLoss(){
-    await new Promise(r => setTimeout(r, 100));
+    await new Promise(r => setTimeout(r, 300));
     try{
     if(document.querySelector(".leading-6").innerText == "You won!"){
         console.log("W");
@@ -156,7 +156,7 @@ async function displayLoss(){
 }
 
 async function replaceShare(){
-    await new Promise(r => setTimeout(r, 100));
+    await new Promise(r => setTimeout(r, 200));
     if(document.querySelector(".inline-flex.justify-center.w-full.rounded-md").innerText != "Share") return;
     var oldshare = document.querySelector(".inline-flex.justify-center.w-full.rounded-md");
     var newshare = oldshare.cloneNode();
