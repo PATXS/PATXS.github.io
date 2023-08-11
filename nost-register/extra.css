@@ -32,3 +32,7 @@ button.elementor-item {
   border: 0px !important;
   background: transparent !important;
 }
+
+.jsonplacehodler_company {
+  white-space: pre !important;
+}

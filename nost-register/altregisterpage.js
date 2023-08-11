@@ -297,19 +297,18 @@ async function doCompany(){
 	//console.log(5);
 	companyjson = JSON.stringify(Object.fromEntries(company), undefined, 4);
     console.log(companyjson);
+	document.querySelector(".jsonplacehodler_company").innerText = companyjson;
 	var file2 = new Blob([companyjson], {type: "text/plain"});
     if (window.navigator.msSaveOrOpenBlob) window.navigator.msSaveOrOpenBlob(file2, "output.json");
-    else {
-        var a = document.createElement("a"), url = URL.createObjectURL(file2);
-        a.href = url;
-        a.download = "output.json";
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function() {
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);  
-        }, 0); 
-    }
+	var a = document.createElement("a"), url = URL.createObjectURL(file2);
+	a.href = url;
+	a.download = "output.json";
+	document.body.appendChild(a);
+	a.click();
+	setTimeout(function() {
+		document.body.removeChild(a);
+		window.URL.revokeObjectURL(url);  
+	}, 0); 
 }
 
 async function changeUnit(event){
