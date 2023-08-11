@@ -355,12 +355,18 @@ async function changeUnit(event){
     //document.querySelector("#cog-42").value = units[index].get("addInfo");
     document.querySelector("#cog-43").value = units[index].get("totalEmployees");
 	
-	document.querySelector("#cog-input-auto-2").value = units[index].get("contacts")[0]["name"];
-	document.querySelector("#cog-input-auto-3").value = units[index].get("contacts")[0]["surname"];
-	document.querySelector("#cog-46").value = units[index].get("contacts")[0]["emailWork"];
-	document.querySelector("#cog-48-1").value = units[index].get("contacts")[0]["countryPhone"];
-	document.querySelector("#cog-48-2").value = units[index].get("contacts")[0]["phoneAreaCode"];
-	document.querySelector("#cog-48-3").value = units[index].get("contacts")[0]["mobileNo"];
+	var overwrite = false;
+	for(x in units[index].get("contacts")[0]){
+		if(units[index].get("contacts")[0][x] != "" && units[index].get("contacts")[0][x] != null) overwrite = true;
+	}
+	if(overwrite){
+		document.querySelector("#cog-input-auto-2").value = units[index].get("contacts")[0]["name"];
+		document.querySelector("#cog-input-auto-3").value = units[index].get("contacts")[0]["surname"];
+		document.querySelector("#cog-46").value = units[index].get("contacts")[0]["emailWork"];
+		document.querySelector("#cog-48-1").value = units[index].get("contacts")[0]["countryPhone"];
+		document.querySelector("#cog-48-2").value = units[index].get("contacts")[0]["phoneAreaCode"];
+		document.querySelector("#cog-48-3").value = units[index].get("contacts")[0]["mobileNo"];
+	}
 	//console.log("changed to unit " +index.toString() +": " +JSON.stringify(Object.fromEntries(units[index])));
 }
 
@@ -439,13 +445,18 @@ async function changeDept(event){
     document.querySelector("#cog-58").value = depts[index].get("addressNumber");
     //document.querySelector("#cog-61").value = depts[index].get("addInfo");
     document.querySelector("#cog-62").value = depts[index].get("totalEmployees");
-	
-	document.querySelector("#cog-input-auto-4").value = depts[index].get("contacts")[0]["name"];
-	document.querySelector("#cog-input-auto-5").value = depts[index].get("contacts")[0]["surname"];
-	document.querySelector("#cog-65").value = depts[index].get("contacts")[0]["emailWork"];
-	document.querySelector("#cog-67-1").value = depts[index].get("contacts")[0]["countryPhone"];
-	document.querySelector("#cog-67-2").value = depts[index].get("contacts")[0]["phoneAreaCode"];
-	document.querySelector("#cog-67-3").value = depts[index].get("contacts")[0]["mobileNo"];
+	var overwrite = false;
+	for(x in depts[index].get("contacts")[0]){
+		if(depts[index].get("contacts")[0][x] != "" && depts[index].get("contacts")[0][x] != null) overwrite = true;
+	}
+	if(overwrite){
+		document.querySelector("#cog-input-auto-4").value = depts[index].get("contacts")[0]["name"];
+		document.querySelector("#cog-input-auto-5").value = depts[index].get("contacts")[0]["surname"];
+		document.querySelector("#cog-65").value = depts[index].get("contacts")[0]["emailWork"];
+		document.querySelector("#cog-67-1").value = depts[index].get("contacts")[0]["countryPhone"];
+		document.querySelector("#cog-67-2").value = depts[index].get("contacts")[0]["phoneAreaCode"];
+		document.querySelector("#cog-67-3").value = depts[index].get("contacts")[0]["mobileNo"];
+	}
 	
     document.querySelector(".deptunitselector").selectedIndex = depts[index].get("unitCode");
 	//console.log("changed to dept " +index.toString() +": " +JSON.stringify(Object.fromEntries(depts[index])));
