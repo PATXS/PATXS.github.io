@@ -1,0 +1,34 @@
+html .cog-cognito--styled textarea, html .cog-cognito--styled select, html .cog-cognito--styled input[type="text"], html .cog-cognito--styled [type="tel"], html .cog-cognito--styled [type="password"], html .cog-cognito--styled [type="date"], html .cog-cognito--styled [type="email"], html .cog-cognito--styled [type="url"], html .cog-cognito--styled [type="time"], :root:root:root:root:root .cog-cognito--styled textarea, :root:root:root:root:root .cog-cognito--styled select, :root:root:root:root:root .cog-cognito--styled input[type="text"], :root:root:root:root:root .cog-cognito--styled [type="tel"], :root:root:root:root:root .cog-cognito--styled [type="password"], :root:root:root:root:root .cog-cognito--styled [type="date"], :root:root:root:root:root .cog-cognito--styled [type="email"], :root:root:root:root:root .cog-cognito--styled [type="url"], :root:root:root:root:root .cog-cognito--styled [type="time"] {
+  border-radius: 15px;
+}
+
+.el-input-number__increase {
+  border-radius: 25px !important;
+}
+
+.el-input-number__decrease {
+  border-radius: 25px !important;
+}
+
+select {
+  padding: 10px !important;
+}
+.elementor-768 .elementor-element.elementor-element-4845b59 {
+  visibility: hidden;
+}
+.delunit, .deldept {
+  margin-left: 10px !important;
+}
+
+.clr-alpha {
+  display: none !important;
+}
+
+.elementor-section.elementor-top-section.elementor-element.elementor-element-bbbcdee.elementor-section-height-min-height.elementor-section-boxed.elementor-section-height-default.elementor-section-items-middle {
+  pointer-events: none !important;
+}
+
+button.elementor-item {
+  border: 0px !important;
+  background: transparent !important;
+}
