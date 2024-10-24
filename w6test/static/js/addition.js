@@ -1,4 +1,4 @@
-/*var start = new Date(2022, 0, 1);
+var start = new Date(2022, 0, 1);
 var day = Math.floor((Date.now() - start) / 86400000);
 var stats = {
     lastPlayed: 0,
@@ -9,7 +9,9 @@ var stats = {
 }
 var settings = {
     dark: 2,
-    hard: 0
+    hard: 0,
+    copy: 0,
+    discord: 0
 }
 //https://stackoverflow.com/a/15506705
 const addStyle = (() => {
@@ -59,63 +61,137 @@ document.onkeypress = function (e) {
     fakeenter.classList.remove("fakeenter");
     fakeenter.addEventListener("click", HMCheckValidGuess, false);
     document.querySelector(".py-4 > div:nth-child(3) > div:nth-child(3)").prepend(fakeenter);
+    if(stats.lastPlayed == day && JSON.parse(localStorage.getItem('gameState')).guesses.includes(JSON.parse(localStorage.getItem('gameState')).solution)) replaceShare();
+    if(stats.lastPlayed == day && !JSON.parse(localStorage.getItem('gameState')).guesses.includes(JSON.parse(localStorage.getItem('gameState')).solution) && JSON.parse(localStorage.getItem('gameState')).guesses.length == 6) displayLoss();
 })();
 
 async function detectWinLoss(){
-    await new Promise(r => setTimeout(r, 100));
+    await new Promise(r => setTimeout(r, 300));
     try{
     if(document.querySelector(".leading-6").innerText == "You won!"){
         console.log("W");
         if(stats.lastPlayed != day) writeGameStat("w");
+        replaceShare();
     }}
     catch{}
     try{
     if(document.querySelector(".text-sm").textContent.startsWith("You lost")){
         console.log("L");
         if(stats.lastPlayed != day) writeGameStat("l");
-        var lostword = document.querySelector(".text-sm").textContent.slice(23);
-        var el = document.querySelector(".h-6.w-6.cursor-pointer");
-        if (el.fireEvent) {
-            (el.fireEvent('onclick'));
-        } else {
-            var evObj = document.createEvent('Events');
-            evObj.initEvent('click', true, false);
-            el.dispatchEvent(evObj);
-        }
-        await new Promise(r => setTimeout(r, 20));
-        document.querySelectorAll(".flex.justify-center.mb-1.mt-4").forEach((div) => {
-            div.style.display = "none";
-        });
-        document.querySelectorAll(".text-sm.text-gray-500").forEach((p) => {
-            p.style.display = "none";
-        });
-        document.querySelector(".leading-6:first-child").innerText = "You fell off!";
-        document.querySelector("div.mt-2:nth-child(2) > p:nth-child(1)").innerText = "The word was:"
-        document.querySelector("div.mt-2:nth-child(2) > p:nth-child(1)").style.display = "block";
-        document.querySelector("div.mt-2:nth-child(2) > p:nth-child(1)").style.fontSize = "16px";
-        document.querySelector(".leading-6:nth-child(2)").classList.add("felloff");
-        document.querySelector(".leading-6:nth-child(2)").innerText = lostword;
-        document.querySelector(".leading-6:nth-child(2)").style = "text-align: center; display: block; margin: 10px auto auto auto; color: #E9B308; font-weight: bold; font-size: 20px; border: dashed #E9B308 3px; width: 110px; border-radius: 20px;";
-        var sharebutton = document.createElement("button");
-        sharebutton.className = "inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm";
-        sharebutton.innerText = "Share";
-        document.querySelector("div.mt-2:nth-child(3)").appendChild(sharebutton);
-        sharebutton.addEventListener("click", shareOrCopy, false);
+        displayLoss();
     }}
     catch{}
 }
 
-function shareOrCopy(){
-    var gamestate = "wordle6.com " +day +" X/6\n\n";
+function HMCheckValidGuess(){
+    console.log("test (enter event worked)");
+    if(settings.hard != 1){
+        console.log("test (hard mode off)");
+        document.querySelector(".enterbtn").click();
+        return;
+    }
+    console.log("test (hard mode on)");
+    var greens = {};
+    var yellows = [];
     for(var x=1;x<7;x++){
         for(var y=0;y<6;y++){
-            if(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].className.includes("slate-400")) gamestate+="⬜";
+            try{
+            if(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].className.includes("yellow")) yellows.push(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].innerText);
+            if(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].className.includes("green")) greens[y] = document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].innerText;}
+            catch{}
+        }
+    }
+    for(var z=0;z<6;z++){
+        if(greens[z]){
+            if(document.querySelectorAll(".border-slate-200")[z].innerText != greens[z]) {
+                createMsg("" +greens[z] +" must be in position " +(z+1));
+                return;
+            }
+        }
+    }
+    var guess = "";
+    for(var a=0;a<6;a++){
+        guess+=document.querySelectorAll(".border-slate-200")[a].innerText;
+    }
+    for(var b=0;b<6;b++){
+        if(yellows[b]){
+            if(!guess.includes(yellows[b])){
+                createMsg("Word must include " +yellows[b]);
+                return;
+            }
+        }
+    }
+    document.querySelector(".enterbtn").click();
+}
+
+async function displayLoss(){
+    var lostword = JSON.parse(localStorage.getItem('gameState')).solution;
+    var el = document.querySelector(".h-6.w-6.cursor-pointer");
+    if (el.fireEvent) {
+        (el.fireEvent('onclick'));
+    } else {
+        var evObj = document.createEvent('Events');
+        evObj.initEvent('click', true, false);
+        el.dispatchEvent(evObj);
+    }
+    await new Promise(r => setTimeout(r, 20));
+    document.querySelectorAll(".flex.justify-center.mb-1.mt-4").forEach((div) => {
+        div.style.display = "none";
+    });
+    document.querySelectorAll(".text-sm.text-gray-500").forEach((p) => {
+        p.style.display = "none";
+    });
+    document.querySelector(".leading-6:first-child").innerText = "You fell off!";
+    document.querySelector("div.mt-2:nth-child(2) > p:nth-child(1)").innerText = "The word was:"
+    document.querySelector("div.mt-2:nth-child(2) > p:nth-child(1)").style.display = "block";
+    document.querySelector("div.mt-2:nth-child(2) > p:nth-child(1)").style.fontSize = "16px";
+    document.querySelector(".leading-6:nth-child(2)").classList.add("felloff");
+    document.querySelector(".leading-6:nth-child(2)").innerText = lostword;
+    document.querySelector(".leading-6:nth-child(2)").style = "text-align: center; display: block; margin: 10px auto auto auto; color: #E9B308; font-weight: bold; font-size: 20px; border: dashed #E9B308 3px; width: 110px; border-radius: 20px;";
+    var sharebutton = document.createElement("button");
+    sharebutton.className = "inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm";
+    sharebutton.innerText = "Share";
+    document.querySelector("div.mt-2:nth-child(3)").appendChild(sharebutton);
+    sharebutton.addEventListener("click", function(){shareOrCopy("l")}, false);
+}
+
+async function replaceShare(){
+    await new Promise(r => setTimeout(r, 200));
+    if(document.querySelector(".inline-flex.justify-center.w-full.rounded-md").innerText != "Share") return;
+    var oldshare = document.querySelector(".inline-flex.justify-center.w-full.rounded-md");
+    var newshare = oldshare.cloneNode();
+    newshare.addEventListener("click", function(){shareOrCopy("w")}, false);
+    newshare.innerText = "Share";
+    oldshare.parentNode.replaceChild(newshare, oldshare);
+}
+
+function shareOrCopy(wl){
+    var word = "";
+    var asterisk = "";
+    var miss = "⬜";
+    if(document.querySelector("body").classList.contains("dark")) miss = "⬛";
+    if(settings.hard == 1) asterisk="*"
+    var gamestate = "wordle6.com " +day +" X/6" +asterisk +"\n\n";
+    for(var x=1;x<7;x++){
+        word = "";
+        for(var y=0;y<6;y++){
+            if(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].className.includes("slate-400")) gamestate+=miss;
             if(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].className.includes("yellow")) gamestate+="🟨";
             if(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].className.includes("green")) gamestate+="🟩";
+            word += document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].innerText;
         }
-        gamestate+="\n";
+        if(!gamestate.includes("🟩🟩🟩🟩🟩🟩 ||")) if(settings.discord==1) gamestate+=" ||`"+word+"`||";
+        if(!gamestate.includes("🟩🟩🟩🟩🟩🟩")) gamestate+="\n";
     }
-    navigator.share ? navigator.share({text: gamestate}) : (navigator.clipboard.writeText(gamestate) ? document.querySelector(".inline-flex").innerText = "Copied!" : 0);
+    if(wl=="w"){
+        gamestate=gamestate.replace("X", String((gamestate.match(/^\s*\S/gm) || "").length-1));
+    }
+    if(settings.copy == 1){
+        navigator.clipboard.writeText(gamestate);
+        document.querySelector(".inline-flex").innerText = "Copied!";
+        return;
+    }
+    else navigator.share ? navigator.share({text: gamestate}) : (navigator.clipboard.writeText(gamestate) ? document.querySelector(".inline-flex").innerText = "Copied!" : 0);
 }
 
 async function openSettings(){
@@ -155,6 +231,21 @@ async function openSettings(){
     else toggledark.innerText = "Toggle dark mode";
     toggledark.addEventListener("click", toggleDark, false);
     document.querySelector(".inline-block").appendChild(toggledark);
+
+    var sharecopymode = document.createElement("button");
+    sharecopymode.className = "inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm sharecopymode";
+    sharecopymode.innerText = "Share mode: Default";
+    if(settings.copy == 1) sharecopymode.innerText = "Share mode: Clipboard";
+    sharecopymode.addEventListener("click", toggleCopyMode, false);
+    document.querySelector(".inline-block").appendChild(sharecopymode);
+
+    var shareformat = document.createElement("button");
+    shareformat.className = "inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm shareformat";
+    shareformat.innerText = "Share format: Default";
+    if(settings.discord == 1) shareformat.innerText = "Share format: Discord";
+    shareformat.addEventListener("click", toggleShareFormat, false);
+    document.querySelector(".inline-block").appendChild(shareformat);
+
     var w6rand = document.createElement("a");
     w6rand.className = "inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm";
     w6rand.innerText = "Play a random Wordle 6";
@@ -172,7 +263,7 @@ async function openSettings(){
     document.querySelector(".inline-block").appendChild(changename);
     //read stats
     document.querySelector(".statPlayed").innerText = stats.totalPlayed;
-    if(stats.totalPlayed!=0) document.querySelector(".statWin").innerText = ""+(stats.won/stats.totalPlayed)*100 +"%";
+    if(stats.totalPlayed!=0) document.querySelector(".statWin").innerText = ""+Math.trunc((stats.won/stats.totalPlayed)*100) +"%";
     document.querySelector(".statStreak").innerText = stats.streak;
     document.querySelector(".statStreakB").innerText = stats.streakBest;
     var statsmsg = document.createElement("p");
@@ -230,7 +321,6 @@ function writeGameStat(wl){
 }
 
 function toggleHM(){
-    console.log("test");
     if(settings.hard == 1) {
         settings.hard = 0;
         document.querySelector(".hmtoggle").innerText = "Enable hard mode";
@@ -244,42 +334,28 @@ function toggleHM(){
     localStorage.setItem('settings', JSON.stringify(settings));
 }
 
-function HMCheckValidGuess(){
-    if(settings.hard != 1){
-        document.querySelector(".enterbtn").click();
-        return;
+function toggleCopyMode(){
+    if(settings.copy == 1) {
+        settings.copy = 0;
+        document.querySelector(".sharecopymode").innerText = "Share mode: Default";
     }
-    var greens = {};
-    var yellows = [];
-    for(var x=1;x<7;x++){
-        for(var y=0;y<6;y++){
-            try{
-            if(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].className.includes("yellow")) yellows.push(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].innerText);
-            if(document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].className.includes("green")) greens[y] = document.querySelector(".pb-6 > div:nth-child(" +x +")").children[y].innerText;}
-            catch{}
-        }
+    else {
+        settings.copy = 1;
+        document.querySelector(".sharecopymode").innerText = "Share mode: Clipboard";
     }
-    for(var z=0;z<6;z++){
-        if(greens[z]){
-            if(document.querySelectorAll(".border-slate-200")[z].innerText != greens[z]) {
-                createMsg("" +greens[z] +" must be in position " +(z+1));
-                return;
-            }
-        }
+    localStorage.setItem('settings', JSON.stringify(settings));
+}
+
+function toggleShareFormat(){
+    if(settings.discord == 1) {
+        settings.discord = 0;
+        document.querySelector(".shareformat").innerText = "Share format: Default";
     }
-    var guess = "";
-    for(var a=0;a<6;a++){
-        guess+=document.querySelectorAll(".border-slate-200")[a].innerText;
+    else {
+        settings.discord = 1;
+        document.querySelector(".shareformat").innerText = "Share format: Discord";
     }
-    for(var b=0;b<6;b++){
-        if(yellows[b]){
-            if(!guess.includes(yellows[b])){
-                createMsg("Word must include " +yellows[b]);
-                return;
-            }
-        }
-    }
-    document.querySelector(".enterbtn").click();
+    localStorage.setItem('settings', JSON.stringify(settings));
 }
 
 async function createMsg(msg){
@@ -296,4 +372,4 @@ async function createMsg(msg){
     headsUp.children[0].style.opacity = 0;
     await new Promise(r => setTimeout(r, 1000));
     headsUp.remove();
-}*/
+}
