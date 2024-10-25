@@ -10369,8 +10369,8 @@
                 (0, e.useEffect)(() => {
                     //if (Number(q) > Number(C) && !y) window.location.replace(Br);
                     if (
-                        (y && null !== h("nightmare") && window.location.replace(window.location.origin + "?unlimited=" + t[parseInt(h("nightmare") || "0")] + "&xyzzyx=" + r.B + "&cheat=" + (w ? "0" : "1")),
-                        y && null !== h("instant") && window.location.replace(window.location.origin + "?unlimited=" + n[parseInt(h("instant") || "0")] + "&xyzzyx=" + r.B + "&cheat=" + (w ? "0" : "1")),
+                        (y && null !== h("nightmare") && window.location.replace(window.location.origin + window.location.pathname + "?unlimited=" + t[parseInt(h("nightmare") || "0")] + "&xyzzyx=" + r.B + "&cheat=" + (w ? "0" : "1")),
+                        y && null !== h("instant") && window.location.replace(window.location.origin + window.location.pathname + "?unlimited=" + n[parseInt(h("instant") || "0")] + "&xyzzyx=" + r.B + "&cheat=" + (w ? "0" : "1")),
                         "" === Wr)
                     ) {
                         for (var e of Fr)
@@ -10483,8 +10483,8 @@
                                       maxDetail: "month",
                                       onClickDay: (e, s) => {
                                           y
-                                              ? window.location.replace(window.location.origin + "?x=" + (1 + p(e) - g) + "&xyzzyx=" + r.B)
-                                              : e >= d && e <= u && window.location.replace(window.location.origin + "?x=" + (1 + p(e) - g) + (null !== h("preventRedirect") ? "&preventRedirect" : ""));
+                                              ? window.location.replace(window.location.origin + window.location.pathname + "?x=" + (1 + p(e) - g) + "&xyzzyx=" + r.B)
+                                              : e >= d && e <= u && window.location.replace(window.location.origin + window.location.pathname + "?x=" + (1 + p(e) - g) + (null !== h("preventRedirect") ? "&preventRedirect" : ""));
                                       },
                                       formatDay: (e, s) =>
                                           (function (e, s) {
