@@ -160,10 +160,12 @@ async function replaceShare(){
     var replacer = setInterval(()=>{
         if(counter>40) {
             clearInterval(replacer);
+            console.log("replacer L??");
             return;
         }
         if(document.querySelector(".newshare")){
             clearInterval(replacer);
+            console.log("replacer W");
             return;
         }
         if(document.querySelector(".inline-flex.justify-center.w-full.rounded-md").innerText != "Share") return;
@@ -173,6 +175,7 @@ async function replaceShare(){
         newshare.innerText = "Share";
         newshare.className += " newshare";
         oldshare.parentNode.replaceChild(newshare, oldshare);
+        newshare.focus();
         counter++;
     }, 50);
 }
