@@ -156,13 +156,28 @@ async function displayLoss(){
 }
 
 async function replaceShare(){
-    await new Promise(r => setTimeout(r, 200));
-    if(document.querySelector(".inline-flex.justify-center.w-full.rounded-md").innerText != "Share") return;
-    var oldshare = document.querySelector(".inline-flex.justify-center.w-full.rounded-md");
-    var newshare = oldshare.cloneNode();
-    newshare.addEventListener("click", function(){shareOrCopy("w")}, false);
-    newshare.innerText = "Share";
-    oldshare.parentNode.replaceChild(newshare, oldshare);
+    var counter = 0;
+    var replacer = setInterval(()=>{
+        if(counter>40) {
+            clearInterval(replacer);
+            console.log("replacer L??");
+            return;
+        }
+        if(document.querySelector(".newshare")){
+            clearInterval(replacer);
+            console.log("replacer W");
+            return;
+        }
+        if(document.querySelector(".inline-flex.justify-center.w-full.rounded-md").innerText != "Share") return;
+        var oldshare = document.querySelector(".inline-flex.justify-center.w-full.rounded-md");
+        var newshare = oldshare.cloneNode();
+        newshare.addEventListener("click", function(){shareOrCopy("w")}, false);
+        newshare.innerText = "Share";
+        newshare.className += " newshare";
+        oldshare.parentNode.replaceChild(newshare, oldshare);
+        newshare.focus();
+        counter++;
+    }, 50);
 }
 
 function shareOrCopy(wl){
